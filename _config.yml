@@ -1,0 +1,22 @@
+# This config file is meant for settings that affect your whole blog, values
+# which you are expected to set up once and rarely need to edit after that.
+# For technical reasons, this file is *NOT* reloaded automatically when you use
+# 'jekyll serve'. If you change this file, please restart the server process.
+
+# Site settings
+title: What Week Is It at RIT?
+#email: your-email@domain.com
+description: "What week is is at RIT? A simple tool to determine what academic week it is at Rochester Institute of Technology."
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "http://whatweekisit.rit.lol" # the base hostname & protocol for your site
+permalink: pretty # to remove the ".html" extension when serving file
+
+# Limit what is hosted on the site.
+exclude: ["CNAME", "Gemfile", "Gemfile.lock", "README.md"]
+
+defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+    values:
+      layout: "default"

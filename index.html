@@ -1,0 +1,69 @@
+---
+---
+
+<div class="jumbotron">
+    <div class="container">
+        <h1 id="week">Loading, or broken JS. :(</h1>
+        <p class="text-danger" id="broken" style="display: none;">
+            Email Corban Mailloux (whatweekisitatRIT@corb.co) to make me fix it.
+        </p>
+        <p>
+            <strong>Note:</strong> This value updates on <strong>Mondays</strong>, and is not guaranteed to be accurate.
+        </p>
+        <p>
+            <small>Please don't be mad at me.</small>
+        </p>
+    </div>
+</div>
+
+<script>
+    // This is really boring.
+    var time = Date.now();
+    var week;
+
+    if (time < (new Date("2015-11-01").getTime()))
+    {
+        week = -1;
+    }
+    else if (time < (new Date("2015-11-09").getTime()))
+    {
+        week = 11;
+    }
+    else if (time < (new Date("2015-11-15").getTime()))
+    {
+        week = 12;
+    }
+    else if (time < (new Date("2015-11-22").getTime()))
+    {
+        week = 13;
+    }
+    else if (time < (new Date("2015-11-29").getTime()))
+    {
+        week = 14;
+    }
+    else if (time < (new Date("2015-12-06").getTime()))
+    {
+        week = 15;
+    }
+    else if (time < (new Date("2015-12-13").getTime()))
+    {
+        week = 16;
+    }
+    else
+    {
+        week = -2;
+    }
+
+    if (week > 0)
+    {
+        document.getElementById("week").innerHTML = "It is currently week <strong>" + week + "</strong> at RIT.";
+        document.title = "Week " + week + " - {{ site.title}}"
+    }
+    else
+    {
+        document.getElementById("week").innerHTML = "I don't know what week it is at RIT.";
+        document.getElementById("broken").style.display = "block";
+        document.title = "{{ site.title}}"
+    }
+
+</script>
