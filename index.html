@@ -3,7 +3,14 @@
 
 <div class="jumbotron">
     <div class="container">
-        <h1 id="week">Loading, or broken JS. :(</h1>
+        <noscript>
+            <div class="alert alert-danger" role="alert">
+                <strong>Uh oh!</strong> JavaScript is disabled or not supported. This site won't work. Go away!
+            </div>
+        </noscript>
+        <h1>
+            <span id="currently">It is currently week <strong><span id="weekNum">...</span></strong></span> at <span class="ritLogo">RIT</span>.
+        </h1>
         <p class="text-danger" id="broken" style="display: none;">
             Email Corban Mailloux (whatweekisitatRIT@corb.co) to make me fix it.
         </p>
@@ -56,14 +63,13 @@
 
     if (week > 0)
     {
-        document.getElementById("week").innerHTML = "It is currently week <strong>" + week + "</strong> at RIT.";
+        document.getElementById("weekNum").innerHTML = week;
         document.title = "Week " + week + " - {{ site.title}}"
     }
     else
     {
-        document.getElementById("week").innerHTML = "I don't know what week it is at RIT.";
+        document.getElementById("currently").innerHTML = "I don't know what week it is";
         document.getElementById("broken").style.display = "block";
         document.title = "{{ site.title}}"
     }
-
 </script>
