@@ -38,7 +38,6 @@
 			"density": "4.0"
 		}
 	],
-	"start_url": "https:\/\/rit.pics",
-	"display": "standalone",
-	"orientation": "portrait"
+	"start_url": "http:\/\/whatweekisit.rit.lol",
+	"display": "standalone"
 }
