@@ -23,36 +23,42 @@
     </div>
 </div>
 
+
 <script>
-    // This is really boring.
-    var time = Date.now();
+    var now = new Date();
+
+    function dateInTheFuture(dateString)
+    {
+        return (now.getTime() < new Date(dateString).getTime());
+    }
+
     var week;
 
-    if (time < (new Date("2015-11-01").getTime()))
+    if (dateInTheFuture("2015-11-01"))
     {
         week = -1;
     }
-    else if (time < (new Date("2015-11-09").getTime()))
+    else if (dateInTheFuture("2015-11-09"))
     {
         week = 11;
     }
-    else if (time < (new Date("2015-11-15").getTime()))
+    else if (dateInTheFuture("2015-11-15"))
     {
         week = 12;
     }
-    else if (time < (new Date("2015-11-22").getTime()))
+    else if (dateInTheFuture("2015-11-22"))
     {
         week = 13;
     }
-    else if (time < (new Date("2015-11-29").getTime()))
+    else if (dateInTheFuture("2015-11-29"))
     {
         week = 14;
     }
-    else if (time < (new Date("2015-12-06").getTime()))
+    else if (dateInTheFuture("2015-12-06"))
     {
         week = 15;
     }
-    else if (time < (new Date("2015-12-13").getTime()))
+    else if (dateInTheFuture("2015-12-13"))
     {
         week = 16;
     }
