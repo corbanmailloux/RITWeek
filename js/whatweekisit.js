@@ -1,5 +1,7 @@
 /*
  * Lots of *fun* stuff in here.
+ * 
+ * (I should clean some of this up.)
  */
 
 // Creates a cookie with the given name, value, and expire date.
@@ -99,13 +101,49 @@ if (week > 0)
     document.getElementById("weekNum").innerHTML = week;
     document.title = "Week " + week + " - " + document.title;
 
-    document.write("You've visited this site <strong>" + times + "</strong> time" + ((times == 1) ? "" : "s") + " this academic week.")
+    var quote = "";
+
+    if (times <= 5)
+    {
+        quote = "What are you, new?";
+    }
+    else if (times <= 10)
+    {
+        quote = "Having some memory issues?";
+    }
+    else if (times <= 15)
+    {
+        quote = "This is getting silly.";
+    }
+    else if (times <= 20)
+    {
+        quote = "You must have a project due this week. Good luck!";
+    }
+    else if (times <= 25)
+    {
+        quote = "Quit procrastinating!";
+    }
+    else if (times <= 30)
+    {
+        quote = "Get a memory test, tiger.";
+    }
+    else // 30+
+    {
+        quote = "Stop spamming me.";
+    }
+
+    document.getElementById("timesVisited").innerHTML = times;
+    document.getElementById("timesPlural").innerHTML = ((times == 1) ? "" : "s");
+    document.getElementById("quote").innerHTML = quote;
 }
 else
 {
     // BOO! I don't know what week it is. I suck. Sorry 'bout that.
     document.getElementById("currently").innerHTML = "I don't know what week it is";
     document.getElementById("broken").style.display = "block";
+    // Hide some stuff...
+    document.getElementById("quote").style.display = "none";
+    document.getElementById("youVisited").style.display = "none";
 
     // Expire the cookie
     setCookie(name, times, new Date("2000-01-01"));
