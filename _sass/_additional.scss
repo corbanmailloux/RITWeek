@@ -1,6 +1,4 @@
-/*
- * Insert any additional CSS/SCSS we need.
- */
+// Additional CSS
 
 // A little padding...
 body 
@@ -12,21 +10,4 @@ body
 .rit-logo
 {
 	font-family: Georgia, Serif;
-}
-
-// Sticky footer
-$footer-height: 30px;
-html {
-  position: relative;
-  min-height: 100%;
-}
-body {
-  margin-bottom: $footer-height;
-}
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: $footer-height;
-  background-color: #f5f5f5;
 }
