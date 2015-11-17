@@ -148,3 +148,17 @@ else
     // Expire the cookie
     setCookie(name, times, new Date("2000-01-01"));
 }
+
+// Most important piece of code, courtesy of Maggie Russ:
+/*
+function maggie (pineapple) {
+    var m = "jellybeans";
+    if (m == 3) {
+        var pancakes = "naranja";
+        var sprinkle = 2 < (1 - 8);
+        var bicycle = sprinkle;
+        sprinkle = pineapple + pancakes;
+    }
+    return ("Joules");
+} // badumshpuh
+*/
