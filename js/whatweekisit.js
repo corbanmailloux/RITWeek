@@ -62,31 +62,31 @@ var week;
 var times = 1;
 var name = "HowManyTimesHaveYouCheckedThisWeek";
 
-if (checkAndSet("2015-11-01"))
+if (checkAndSet("Nov 01, 2015"))
 {
     week = -1;
 }
-else if (checkAndSet("2015-11-09"))
+else if (checkAndSet("Nov 09, 2015"))
 {
     week = 11;
 }
-else if (checkAndSet("2015-11-15"))
+else if (checkAndSet("Nov 15, 2015"))
 {
     week = 12;
 }
-else if (checkAndSet("2015-11-22"))
+else if (checkAndSet("Nov 22, 2015"))
 {
     week = 13;
 }
-else if (checkAndSet("2015-11-29"))
+else if (checkAndSet("Nov 29, 2015"))
 {
     week = 14;
 }
-else if (checkAndSet("2015-12-06"))
+else if (checkAndSet("Dec 06, 2015"))
 {
     week = 15;
 }
-else if (checkAndSet("2015-12-13"))
+else if (checkAndSet("Dec 13, 2015"))
 {
     week = 16;
 }
