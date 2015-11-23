@@ -17,28 +17,19 @@ var weeks = [
     // Upper error not necessary
 ];
 
-// Creates a cookie with the given name, value, and expire date.
-function setCookie(cname, cvalue, date) {
-    var expires = "expires=" + date.toUTCString();
-    document.cookie = cname + "=" + cvalue + "; " + expires;
-}
 
-// Gets a cookie with the given name, or empty string.
-function getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for(var i=0; i<ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0)==' ') c = c.substring(1);
-        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
-    }
-    return "";
-}
-
-// Checks if a cookie with the given name exists.
-function checkCookie(name) {
-    var cookie = getCookie(name);
-    return (cookie != "");
+// Check for localStorage
+function storageAvailable(type) {
+  try {
+    var storage = window[type],
+      x = '__storage_test__';
+    storage.setItem(x, x);
+    storage.removeItem(x);
+    return true;
+  }
+  catch(e) {
+    return false;
+  }
 }
 
 // Checks if the given Date object is in the future.
@@ -47,6 +38,13 @@ function dateInTheFuture(date, nowDate)
     return (nowDate.getTime() < date.getTime());
 }
 
+
+// Test for storage first
+if (!storageAvailable("localStorage")) {
+    // Hide some stuff...
+    document.getElementById("quote").style.display = "none";
+    document.getElementById("youVisited").style.display = "none";
+}
 
 // Time for the real stuff...
 var now = new Date();
@@ -57,14 +55,20 @@ var name = "HowManyTimesHaveYouCheckedThisWeek";
 for (var i = 0; i < weeks.length; i++) {
     if (dateInTheFuture(weeks[i].date, now))
     {
-        if (checkCookie(name))
+        week = weeks[i].week;
+
+        if (localStorage[name] && localStorage["currentWeek"])
         {
-            times = parseInt(getCookie(name), 10) + 1;
+            var oldWeek = parseInt(localStorage["currentWeek"], 10)
+            // Only use the localStorage times if it's the same week
+            if (oldWeek == week)
+            {
+                times = parseInt(localStorage[name], 10) + 1;
+            }
         }
 
-        setCookie(name, times, weeks[i].date);
-
-        week = weeks[i].week;
+        localStorage[name] = times;
+        localStorage["currentWeek"] = week;        
         break;
     }
 }
@@ -119,8 +123,9 @@ else
     document.getElementById("quote").style.display = "none";
     document.getElementById("youVisited").style.display = "none";
 
-    // Expire the cookie
-    setCookie(name, times, new Date("2000-01-01"));
+    // Remove the storage values
+    localStorage.removeItem(name);
+    localStorage.removeItem("currentWeek");
 }
 
 // Most important piece of code, courtesy of Maggie Russ:
