@@ -4,6 +4,19 @@
  * (I should clean some of this up.)
  */
 
+// Week number lookup.
+// Date is the day after the last day of the week (I'm gonna change that soon)
+var weeks = [
+    {date: new Date("Nov 01, 2015"), week: -1}, // Error code. Always set a lower bound
+    {date: new Date("Nov 09, 2015"), week: 11},
+    {date: new Date("Nov 15, 2015"), week: 12},
+    {date: new Date("Nov 22, 2015"), week: 13},
+    {date: new Date("Nov 29, 2015"), week: 14},
+    {date: new Date("Dec 06, 2015"), week: 15},
+    {date: new Date("Dec 13, 2015"), week: 16}
+    // Upper error not necessary
+];
+
 // Creates a cookie with the given name, value, and expire date.
 function setCookie(cname, cvalue, date) {
     var expires = "expires=" + date.toUTCString();
@@ -29,70 +42,31 @@ function checkCookie(name) {
 }
 
 // Checks if the given Date object is in the future.
-// Depends on global variable "now," because I'm lazy.
-function dateInTheFuture(date)
+function dateInTheFuture(date, nowDate)
 {
-    return (now.getTime() < date.getTime());
+    return (nowDate.getTime() < date.getTime());
 }
 
-// Checks if the date is in the future, sets the cookies, 
-// and updates global variable "times" with times visited.
-// Depends on global variables "name," "times," and "now," because I'm lazy.
-function checkAndSet(dateString)
-{
-    var date = new Date(dateString);
 
-    if (dateInTheFuture(date))
+// Time for the real stuff...
+var now = new Date();
+var week = 0; // Initial value
+var times = 1;
+var name = "HowManyTimesHaveYouCheckedThisWeek";
+
+for (var i = 0; i < weeks.length; i++) {
+    if (dateInTheFuture(weeks[i].date, now))
     {
         if (checkCookie(name))
         {
             times = parseInt(getCookie(name), 10) + 1;
         }
 
-        setCookie(name, times, date);
+        setCookie(name, times, weeks[i].date);
 
-        return true;
+        week = weeks[i].week;
+        break;
     }
-    return false;
-}
-
-// Time for the real stuff...
-var now = new Date();
-var week;
-var times = 1;
-var name = "HowManyTimesHaveYouCheckedThisWeek";
-
-if (checkAndSet("Nov 01, 2015"))
-{
-    week = -1;
-}
-else if (checkAndSet("Nov 09, 2015"))
-{
-    week = 11;
-}
-else if (checkAndSet("Nov 15, 2015"))
-{
-    week = 12;
-}
-else if (checkAndSet("Nov 22, 2015"))
-{
-    week = 13;
-}
-else if (checkAndSet("Nov 29, 2015"))
-{
-    week = 14;
-}
-else if (checkAndSet("Dec 06, 2015"))
-{
-    week = 15;
-}
-else if (checkAndSet("Dec 13, 2015"))
-{
-    week = 16;
-}
-else
-{
-    week = -2;
 }
 
 if (week > 0)
