@@ -4,5 +4,14 @@
 		{
 			"path": "."
 		}
-	]
+	],
+    "build_systems":
+    [
+        {
+            "name": "jekyll",
+            "cmd": ["start", "bundle", "exec", "jekyll", "serve"],
+            "working_dir": "$project_path",
+            "shell": true
+        }
+    ]
 }
