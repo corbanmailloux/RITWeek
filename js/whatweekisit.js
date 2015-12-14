@@ -5,7 +5,7 @@
  */
 
 // Week number lookup.
-// Date is the day after the last day of the week (I'm gonna change that soon)
+// Date is the day after the last day of the week (I'm gonna change that soon...)
 var weeks = [
     {date: new Date("Nov 01, 2015"), week: -1}, // Error code. Always set a lower bound
     {date: new Date("Nov 09, 2015"), week: 11},
@@ -13,7 +13,8 @@ var weeks = [
     {date: new Date("Nov 22, 2015"), week: 13},
     {date: new Date("Nov 29, 2015"), week: 14},
     {date: new Date("Dec 06, 2015"), week: 15},
-    {date: new Date("Dec 13, 2015"), week: 16}
+    {date: new Date("Dec 13, 2015"), week: 16},
+    {date: new Date("Dec 20, 2015"), week: 17} // Finals week...
     // Upper error not necessary
 ];
 
@@ -75,44 +76,57 @@ for (var i = 0; i < weeks.length; i++) {
 
 if (week > 0)
 {
-    // OOH! I KNOW WHAT WEEK IT IS! YAY! I'M HELPFUL!
-    document.getElementById("weekNum").innerHTML = week;
-    document.title = "Week " + week + " - " + document.title;
+    if (week == 17) 
+    {
+        // AHH! FINALS WEEK!
+        document.getElementById("currently").innerHTML = "It is <strong>FINALS WEEK</strong>";
+        document.title = "FINALS! - " + document.title;
 
-    var quote = "";
+        document.getElementById("timesVisited").innerHTML = times;
+        document.getElementById("timesPlural").innerHTML = ((times == 1) ? "" : "s");
+        document.getElementById("quote").innerHTML = "Good luck on your finals!";
+    } 
+    else
+    {
+        // OOH! I KNOW WHAT WEEK IT IS! YAY! I'M HELPFUL!
+        document.getElementById("weekNum").innerHTML = week;
+        document.title = "Week " + week + " - " + document.title;
 
-    if (times <= 5)
-    {
-        quote = "What are you, new?";
-    }
-    else if (times <= 10)
-    {
-        quote = "Having some memory issues?";
-    }
-    else if (times <= 15)
-    {
-        quote = "This is getting silly.";
-    }
-    else if (times <= 20)
-    {
-        quote = "You must have a project due this week. Good luck!";
-    }
-    else if (times <= 25)
-    {
-        quote = "Quit procrastinating!";
-    }
-    else if (times <= 30)
-    {
-        quote = "Get a memory test, tiger.";
-    }
-    else // 30+
-    {
-        quote = "Stop spamming me.";
-    }
+        var quote = "";
 
-    document.getElementById("timesVisited").innerHTML = times;
-    document.getElementById("timesPlural").innerHTML = ((times == 1) ? "" : "s");
-    document.getElementById("quote").innerHTML = quote;
+        if (times <= 5)
+        {
+            quote = "What are you, new?";
+        }
+        else if (times <= 10)
+        {
+            quote = "Having some memory issues?";
+        }
+        else if (times <= 15)
+        {
+            quote = "This is getting silly.";
+        }
+        else if (times <= 20)
+        {
+            quote = "You must have a project due this week. Good luck!";
+        }
+        else if (times <= 25)
+        {
+            quote = "Quit procrastinating!";
+        }
+        else if (times <= 30)
+        {
+            quote = "Get a memory test, tiger.";
+        }
+        else // 30+
+        {
+            quote = "Stop spamming me.";
+        }
+
+        document.getElementById("timesVisited").innerHTML = times;
+        document.getElementById("timesPlural").innerHTML = ((times == 1) ? "" : "s");
+        document.getElementById("quote").innerHTML = quote;
+    }
 }
 else
 {
