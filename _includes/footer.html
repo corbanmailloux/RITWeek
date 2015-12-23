@@ -8,6 +8,13 @@
 <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 <!-- Bootstrap's JS -->
 <script src="/bootstrap/js/bootstrap.min.js"></script>
+
+{% if page.custom_js %}
+    {% for js_file in page.custom_js %}
+        <script src="/js/{{ js_file }}"></script>
+    {% endfor %}
+{% endif %}
+
 <!-- Google Analytics -->
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

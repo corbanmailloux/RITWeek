@@ -10,6 +10,11 @@
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/main.css">
+    {% if page.custom_css %}
+        {% for stylesheet in page.custom_css %}
+            <link rel="stylesheet" type="text/css" href="/css/{{ stylesheet }}">
+        {% endfor %}
+    {% endif %}
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/icons/apple-touch-icon-57x57.png?v=oLLPWWp3L8">
