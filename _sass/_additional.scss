@@ -1,8 +1,8 @@
 // Additional CSS
 
 // A little padding...
-body 
-{ 
+body
+{
 	padding-top: 30px;
 }
 
@@ -10,4 +10,22 @@ body
 .rit-logo
 {
 	font-family: Georgia, Serif;
+}
+
+.christmas
+{
+	background: repeating-linear-gradient(
+		45deg,
+		red,
+		red 100px,
+		green 100px,
+		green 200px
+	);
+}
+
+.text-christmas span:nth-of-type(even){
+	color:green;
+}
+.text-christmas span:nth-of-type(odd){
+	color:red;
 }

@@ -1,6 +1,6 @@
 /*
  * Lots of *fun* stuff in here.
- * 
+ *
  * (I should clean some of this up.)
  */
 
@@ -14,7 +14,8 @@ var weeks = [
     {date: new Date("Nov 29, 2015"), week: 14},
     {date: new Date("Dec 06, 2015"), week: 15},
     {date: new Date("Dec 13, 2015"), week: 16},
-    {date: new Date("Dec 20, 2015"), week: 17} // Finals week...
+    {date: new Date("Dec 20, 2015"), week: 17}, // Finals week...
+    {date: new Date("Dec 27, 2015"), week: 18} // Christmas week!
     // Upper error not necessary
 ];
 
@@ -69,14 +70,14 @@ for (var i = 0; i < weeks.length; i++) {
         }
 
         localStorage[name] = times;
-        localStorage["currentWeek"] = week;        
+        localStorage["currentWeek"] = week;
         break;
     }
 }
 
 if (week > 0)
 {
-    if (week == 17) 
+    if (week == 17)
     {
         // AHH! FINALS WEEK!
         document.getElementById("currently").innerHTML = "It is <strong>FINALS WEEK</strong>";
@@ -85,7 +86,31 @@ if (week > 0)
         document.getElementById("timesVisited").innerHTML = times;
         document.getElementById("timesPlural").innerHTML = ((times == 1) ? "" : "s");
         document.getElementById("quote").innerHTML = "Good luck on your finals!";
-    } 
+    }
+    else if (week == 18)
+    {
+        // Christmas!
+        document.getElementById("currently").innerHTML = '' +
+            'It is <strong><span class="text-christmas">' +
+                '<span>C</span>' +
+                '<span>H</span>' +
+                '<span>R</span>' +
+                '<span>I</span>' +
+                '<span>S</span>' +
+                '<span>T</span>' +
+                '<span>M</span>' +
+                '<span>A</span>' +
+                '<span>S</span>' +
+            '</span></strong>'
+        ;
+
+        $("body").addClass("christmas");
+        document.title = "Christmas! - " + document.title;
+
+        document.getElementById("timesVisited").innerHTML = times;
+        document.getElementById("timesPlural").innerHTML = ((times == 1) ? "" : "s");
+        document.getElementById("quote").innerHTML = "Have yourself a merry little Christmas!";
+    }
     else
     {
         // OOH! I KNOW WHAT WEEK IT IS! YAY! I'M HELPFUL!
