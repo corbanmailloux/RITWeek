@@ -60,6 +60,8 @@ if (!storageAvailable("localStorage")) {
 
 // Time for the real stuff...
 var fallStartDate = moment("2015-08-24");
+var springStartDate = moment("2016-12-25");
+var springBreakMonday = moment("2016-03-21");
 
 // Build weeks
 var weeks = [];
@@ -71,12 +73,39 @@ for (var i = 1; i <= 18; i++) { // Fall, including finals and Christmas.
     });
 }
 
+// Spring, dealing with Spring Break.
+var springWeekNum = 1;
+for (var i = 1; i <= 17; i++) {
+    var begin = moment(springStartDate).add((i-1), "weeks");
+    if (begin.isSame(springBreakMonday, "day")) // Check for Spring Break
+    {
+        weeks.push({
+            beginning: begin,
+            end: moment(springStartDate).add(i, "weeks"),
+            week: 19 // Spring Break special code
+        });
+    }
+    else // Normal week
+    {
+        weeks.push({
+            beginning: begin,
+            end: moment(springStartDate).add(i, "weeks"),
+            week: springWeekNum
+        });
+        springWeekNum++;
+    }
+}
+
 var week = getWeek();
 var times = updateLocalStorageAndGetTimes(week);
 
 if (week > 0) // Valid week
 {
-    // SPECIAL WEEKS
+    /* SPECIAL WEEKS
+     *  17 - Finals Week
+     *  18 - Christmas
+     *  19 - Spring Break
+     */
     if (week == 17) // Finals week
     {
         // AHH! FINALS WEEK!
@@ -110,6 +139,15 @@ if (week > 0) // Valid week
         document.getElementById("timesVisited").innerHTML = times;
         document.getElementById("timesPlural").innerHTML = ((times == 1) ? "" : "s");
         document.getElementById("quote").innerHTML = "Have yourself a merry little Christmas!";
+    }
+    else if (week == 19) // Spring Break
+    {
+        document.getElementById("currently").innerHTML = "It is <strong>SPRING BREAK</strong>";
+        document.title = "Spring Break - " + document.title;
+
+        document.getElementById("timesVisited").innerHTML = times;
+        document.getElementById("timesPlural").innerHTML = ((times == 1) ? "" : "s");
+        document.getElementById("quote").innerHTML = "Go have fun!";
     }
     else // Normal weeks
     {
