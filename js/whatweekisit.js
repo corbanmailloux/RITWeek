@@ -1,24 +1,6 @@
 /*
  * Lots of *fun* stuff in here.
- *
- * (I should clean some of this up.)
  */
-
-// Week number lookup.
-// Date is the day after the last day of the week (I'm gonna change that soon...)
-var weeks = [
-    {date: new Date("Nov 01, 2015"), week: -1}, // Error code. Always set a lower bound
-    {date: new Date("Nov 09, 2015"), week: 11},
-    {date: new Date("Nov 15, 2015"), week: 12},
-    {date: new Date("Nov 22, 2015"), week: 13},
-    {date: new Date("Nov 29, 2015"), week: 14},
-    {date: new Date("Dec 06, 2015"), week: 15},
-    {date: new Date("Dec 13, 2015"), week: 16},
-    {date: new Date("Dec 20, 2015"), week: 17}, // Finals week...
-    {date: new Date("Dec 27, 2015"), week: 18} // Christmas week!
-    // Upper error not necessary
-];
-
 
 // Check for localStorage
 function storageAvailable(type) {
@@ -34,10 +16,38 @@ function storageAvailable(type) {
   }
 }
 
-// Checks if the given Date object is in the future.
-function dateInTheFuture(date, nowDate)
+// Get the current week number, or -1 if error.
+function getWeek() {
+    nowMoment = moment();
+    for (var i = 0; i < weeks.length; i++) {
+        if (nowMoment.isBetween(weeks[i].beginning, weeks[i].end, "day")) {
+            return weeks[i].week;
+        }
+    }
+    return -1; // Error
+}
+
+// Gets and update the counter in localStorage.
+// Returns the count.
+function updateLocalStorageAndGetTimes(week)
 {
-    return (nowDate.getTime() < date.getTime());
+    var times = 1; // Initial
+
+    // Update localStorage
+    if (localStorage["HowManyTimesHaveYouCheckedThisWeek"] && localStorage["currentWeek"])
+    {
+        var oldWeek = parseInt(localStorage["currentWeek"], 10)
+        // Only use the localStorage times if it's the same week
+        if (oldWeek == week)
+        {
+            times = parseInt(localStorage["HowManyTimesHaveYouCheckedThisWeek"], 10) + 1;
+        }
+    }
+
+    localStorage["HowManyTimesHaveYouCheckedThisWeek"] = times;
+    localStorage["currentWeek"] = week;
+
+    return times;
 }
 
 
@@ -49,35 +59,25 @@ if (!storageAvailable("localStorage")) {
 }
 
 // Time for the real stuff...
-var now = new Date();
-var week = 0; // Initial value
-var times = 1;
-var name = "HowManyTimesHaveYouCheckedThisWeek";
+var fallStartDate = moment("2015-08-24");
 
-for (var i = 0; i < weeks.length; i++) {
-    if (dateInTheFuture(weeks[i].date, now))
-    {
-        week = weeks[i].week;
-
-        if (localStorage[name] && localStorage["currentWeek"])
-        {
-            var oldWeek = parseInt(localStorage["currentWeek"], 10)
-            // Only use the localStorage times if it's the same week
-            if (oldWeek == week)
-            {
-                times = parseInt(localStorage[name], 10) + 1;
-            }
-        }
-
-        localStorage[name] = times;
-        localStorage["currentWeek"] = week;
-        break;
-    }
+// Build weeks
+var weeks = [];
+for (var i = 1; i <= 18; i++) { // Fall, including finals and Christmas.
+    weeks.push({
+        beginning: moment(fallStartDate).add((i-1), "weeks"),
+        end: moment(fallStartDate).add(i, "weeks"),
+        week: i
+    });
 }
 
-if (week > 0)
+var week = getWeek();
+var times = updateLocalStorageAndGetTimes(week);
+
+if (week > 0) // Valid week
 {
-    if (week == 17)
+    // SPECIAL WEEKS
+    if (week == 17) // Finals week
     {
         // AHH! FINALS WEEK!
         document.getElementById("currently").innerHTML = "It is <strong>FINALS WEEK</strong>";
@@ -87,9 +87,9 @@ if (week > 0)
         document.getElementById("timesPlural").innerHTML = ((times == 1) ? "" : "s");
         document.getElementById("quote").innerHTML = "Good luck on your finals!";
     }
-    else if (week == 18)
+    else if (week == 18) // Christmas
     {
-        // Christmas!
+        // This should not be done this way, but it's Christmas and I'm lazy.
         document.getElementById("currently").innerHTML = '' +
             'It is <strong><span class="text-christmas">' +
                 '<span>C</span>' +
@@ -111,7 +111,7 @@ if (week > 0)
         document.getElementById("timesPlural").innerHTML = ((times == 1) ? "" : "s");
         document.getElementById("quote").innerHTML = "Have yourself a merry little Christmas!";
     }
-    else
+    else // Normal weeks
     {
         // OOH! I KNOW WHAT WEEK IT IS! YAY! I'M HELPFUL!
         document.getElementById("weekNum").innerHTML = week;
@@ -153,7 +153,7 @@ if (week > 0)
         document.getElementById("quote").innerHTML = quote;
     }
 }
-else
+else // Error
 {
     // BOO! I don't know what week it is. I suck. Sorry 'bout that.
     document.getElementById("currently").innerHTML = "I don't know what week it is";
