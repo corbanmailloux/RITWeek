@@ -59,16 +59,31 @@ if (!storageAvailable("localStorage")) {
 }
 
 // Time for the real stuff...
+
+// Set up the dates
 var fallStartDate = moment("2015-08-24");
+var interTigerStartDate = moment("2015-01-04"); // Intersession TigerTerm
 var springStartDate = moment("2016-12-25");
 var springBreakMonday = moment("2016-03-21");
+var summerTigerStartDate = moment("2015-01-04"); // Summer TigerTerm (10-week)
 
 // Build weeks
 var weeks = [];
-for (var i = 1; i <= 18; i++) { // Fall, including finals and Christmas.
+
+// Fall, including finals and Christmas.
+for (var i = 1; i <= 18; i++) {
     weeks.push({
         beginning: moment(fallStartDate).add((i-1), "weeks"),
         end: moment(fallStartDate).add(i, "weeks"),
+        week: i
+    });
+}
+
+// Intersession TigerTerm
+for (var i = 1; i <= 3; i++) {
+    weeks.push({
+        beginning: moment(interTigerStartDate).add((i-1), "weeks"),
+        end: moment(interTigerStartDate).add(i, "weeks"),
         week: i
     });
 }
@@ -95,6 +110,21 @@ for (var i = 1; i <= 17; i++) {
         springWeekNum++;
     }
 }
+
+// Summer TigerTerm
+for (var i = 1; i <= 10; i++) {
+    weeks.push({
+        beginning: moment(summerTigerStartDate).add((i-1), "weeks"),
+        end: moment(summerTigerStartDate).add(i, "weeks"),
+        week: i
+    });
+}
+weeks.push({
+    beginning: moment(summerTigerStartDate).add((10), "weeks"),
+    end: moment(summerTigerStartDate).add(11, "weeks"),
+    week: 17 // Finals week code
+});
+
 
 var week = getWeek();
 var times = updateLocalStorageAndGetTimes(week);
