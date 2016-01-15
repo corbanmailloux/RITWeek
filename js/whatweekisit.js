@@ -25,7 +25,7 @@ function getWeek() {
         //Note: isBetween() is exclusive. This could be done with less || statements,
         //but I left the isBetween() call in case it is one day inclusive. -VB 1/15/16
         var withinWeek = nowMoment.isBetween(beginning, end, "day");
-        withinWeek = withinWeek || nowMoment.isSame(beginning) || nowMoment.isSame(end);
+        withinWeek = withinWeek || nowMoment.isSame(beginning);
         if (withinWeek) {
             return weeks[i].week;
         }
