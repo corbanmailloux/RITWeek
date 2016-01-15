@@ -20,7 +20,13 @@ function storageAvailable(type) {
 function getWeek() {
     nowMoment = moment();
     for (var i = 0; i < weeks.length; i++) {
-        if (nowMoment.isBetween(weeks[i].beginning, weeks[i].end, "day")) {
+        var beginning = weeks[i].beginning;
+        var end = weeks[i].end;
+        //Note: isBetween() is exclusive. This could be done with less || statements,
+        //but I left the isBetween() call in case it is one day inclusive. -VB 1/15/16
+        var withinWeek = nowMoment.isBetween(beginning, end, "day");
+        withinWeek = withinWeek || nowMoment.isSame(beginning);
+        if (withinWeek) {
             return weeks[i].week;
         }
     }
@@ -62,10 +68,10 @@ if (!storageAvailable("localStorage")) {
 
 // Set up the dates
 var fallStartDate = moment("2015-08-24");
-var interTigerStartDate = moment("2015-01-04"); // Intersession TigerTerm
-var springStartDate = moment("2016-12-25");
+var interTigerStartDate = moment("2016-01-04"); // Intersession TigerTerm
+var springStartDate = moment("2016-01-25");
 var springBreakMonday = moment("2016-03-21");
-var summerTigerStartDate = moment("2015-01-04"); // Summer TigerTerm (10-week)
+var summerTigerStartDate = moment("2016-05-31"); // Summer TigerTerm (10-week)
 
 // Build weeks
 var weeks = [];
@@ -111,7 +117,7 @@ for (var i = 1; i <= 17; i++) {
     }
 }
 
-// Summer TigerTerm
+// Summer TigerTerm (10-week)
 for (var i = 1; i <= 10; i++) {
     weeks.push({
         beginning: moment(summerTigerStartDate).add((i-1), "weeks"),
@@ -124,7 +130,6 @@ weeks.push({
     end: moment(summerTigerStartDate).add(11, "weeks"),
     week: 17 // Finals week code
 });
-
 
 var week = getWeek();
 var times = updateLocalStorageAndGetTimes(week);
@@ -247,4 +252,12 @@ function maggie (pineapple) {
     }
     return ("Joules");
 } // badumshpuh
+*/
+
+
+// For Adam -VB
+/*
+    function areThereItaliansInCanada(){
+        return false;
+    }
 */
