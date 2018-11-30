@@ -8,7 +8,7 @@ title: What Week Is It @ RIT?
 #email: your-email@domain.com
 description: "What week is is at RIT? A simple tool to determine what academic week it is at Rochester Institute of Technology."
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "http://whatweekisit.rit.lol" # the base hostname & protocol for your site
+url: "http://rit.corb.co" # the base hostname & protocol for your site
 permalink: pretty # to remove the ".html" extension when serving file
 
 # Limit what is hosted on the site.
